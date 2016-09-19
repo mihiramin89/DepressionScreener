@@ -75,15 +75,15 @@ class App extends React.Component {
 	render(){
 		return (
 			<div>
-				<h1 id="msg"></h1>
+				<h1 ref="msg" id="msg"></h1>
 				<hr />
 				<ol>
 					{this.state.questions.map(q => {
-					 	return <li><QuestionInput key={q.ref} ref={q.ref} ID={q.ID} question={q.question} onChange={this.SaveScore} /></li>
+					 	return <li><QuestionInput key={q.ID} ref={q.ref} ID={q.ID} question={q.question} onChange={this.SaveScore} /></li>
 					 })}
 				</ol>
 				<hr />
-				<button onClick={this.NeedsToSeeTherapist}>Next </button>   
+				<button ref="next" onClick={this.NeedsToSeeTherapist}>Next </button>   
 				<label ref="final_results">{this.state.final_score}/27</label>
 				<span> Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</span>
 				<br />
@@ -130,7 +130,7 @@ QuestionInput.defaultProps = {
 	ID:0
 
 }
-
+//stateless therapist class. No need to keep track of state. Just generate a list of options and let the owner do that.
 const Therapist = (props) => {
 	return (
 			<div>

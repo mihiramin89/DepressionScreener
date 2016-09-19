@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
 class App extends React.Component {
 	//This is a constructor that holds the score of each individual
 	constructor(){
 		super();
 		this.state = {
 			final_score: 0,
+			questions: [
+			{ref: "one", ID:"1", question: "Little interest or pleasure in doing things?"},
+			{ref: "two", ID:"2", question: "Feeling down, depressed, or hopeless?" },
+			{ref: "three", ID:"3", question: "Trouble falling or staying asleep, or sleeping too much?"},
+			{ref: "four", ID:"4", question: "Feeling tired or having little energy?"},
+			{ref: "five", ID:"5", question: "Poor appetite or overeating?"},
+			{ref: "six", ID:"6", question: "Feeling bad about yourself - or that you are a failure or have let yourself or your family down?"},
+			{ref: "seven", ID:"7", question: "Trouble concentrating on things, such as reading the newspaper or watching television?"},
+			{ref: "eight", ID:"8", question: "Moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?"},
+			{ref: "nine", ID:"9", question: "Thoughts that you would be better off dead, or of hurting yourself in some way?"}
+			],
 			scores: [
 			{ID:"1", value:0},
 			{ID:"2", value:0},
@@ -67,25 +77,14 @@ class App extends React.Component {
 			<div>
 				<h1 id="msg"></h1>
 				<hr />
-				<QuestionInput ref="one" ID="1" question="Little interest or pleasure in doing things?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="two" ID="2" question="Feeling down, depressed, or hopeless?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="three" ID="3" question="Trouble falling or staying asleep, or sleeping too much?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="four" ID="4" question="Feeling tired or having little energy?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="five" ID="5" question="Poor appetite or overeating?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="six" ID="6" question="Feeling bad about yourself - or that you are a failure or have let yourself or your family down?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="seven" ID="7" question="Trouble concentrating on things, such as reading the newspaper or watching television?" onChange={this.SaveScore}/>
-				<br />
-				<QuestionInput ref="eight" ID="8" question="Moving or speaking so slowly that other people could have noticed?
-Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?" onChange={this.SaveScore}/>
-				<QuestionInput ref="nine" ID="9" question="Thoughts that you would be better off dead, or of hurting yourself in some way?" onChange={this.SaveScore}/>
+				<ol>
+					{this.state.questions.map(q => {
+					 	return <li><QuestionInput key={q.ref} ref={q.ref} ID={q.ID} question={q.question} onChange={this.SaveScore} /></li>
+					 })}
+				</ol>
 				<hr />
-				<button onClick={this.NeedsToSeeTherapist}>Next </button>   <label ref="final_results">{this.state.final_score}/27</label>
+				<button onClick={this.NeedsToSeeTherapist}>Next </button>   
+				<label ref="final_results">{this.state.final_score}/27</label>
 				<span> Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</span>
 				<br />
 				<br />

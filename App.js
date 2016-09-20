@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import QuestionInput from './QuestionInput';
+
 
 class App extends React.Component {
 	//This is a constructor that holds the score of each individual
@@ -41,8 +43,10 @@ class App extends React.Component {
 		if(this.state.final_score >= 10)
 		{
 			ReactDOM.render(<Therapist name1="Mădălina"  name2="Bruce" name3="Kelly" onChange={this.ChosenTherapist} onClick={this.SendMessage}/>, document.getElementById('TList'));
+			document.getElementById('TList').scrollIntoView({block: 'end', behavior: 'smooth'});
 		}else {
-			ReactDOM.render(<span>Wahoo you do not show signs of severe depression!</span>, document.getElementById('msg'));
+			ReactDOM.render(<div id="notDepressed">You do not show signs of severe depression!</div>, document.getElementById('overlay-content'));
+			document.getElementById("overlay").style.width = "100%";
 		}
 	}
 
@@ -55,7 +59,8 @@ class App extends React.Component {
 
 	SendMessage()
 	{
-		ReactDOM.render(<span>Thank you! please schedule a meeting with Therapist {this.state.therapist} in  the near future.</span>, document.getElementById('msg'));
+		ReactDOM.render(<div id="Depressed">Thank you! Please schedule a meeting with Therapist {this.state.therapist} in  the near future.</div>, document.getElementById('overlay-content'));
+		document.getElementById("overlay").style.width = "100%";
 	}
 
 	SaveScore(ID, val)
@@ -75,65 +80,26 @@ class App extends React.Component {
 	render(){
 		return (
 			<div>
-				<h1 ref="msg" id="msg"></h1>
-				<hr />
+				<h2 ref="msg" className="message" id="msg"></h2>
 				<ol>
 					{this.state.questions.map(q => {
 					 	return <li><QuestionInput key={q.ID} ref={q.ref} ID={q.ID} question={q.question} onChange={this.SaveScore} /></li>
 					 })}
 				</ol>
 				<hr />
+				<div id="score_key"> Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</div>
+				<br />
 				<button ref="next" onClick={this.NeedsToSeeTherapist}>Next </button>   
 				<label ref="final_results">{this.state.final_score}/27</label>
-				<span> Depression Severity: 0-4 none, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe.</span>
-				<br />
-				<br />
-				<div id="TList"></div>
 			</div>
 			);
 	}
-}
-
-class QuestionInput extends React.Component {
-
-	constructor()
-	{
-	  super();
-	  this.SetScore = this.SetScore.bind(this);
-	}
-	SetScore(event)
-	{
-
-		this.props.onChange(this.props.ID, +event.target.value);
-	}
-	render(){
-		return (
-			<div>
-			<p><strong> {this.props.question}</strong></p>
-			<input ref={this.props.ID} type="radio" onChange={this.SetScore} name={this.props.ID} value="0"/>Not at all 
-			<input ref={this.props.ID} type="radio" onChange={this.SetScore} name={this.props.ID} value="1"/>Several days 
-			<input ref={this.props.ID} type="radio" onChange={this.SetScore} name={this.props.ID} value="2"/>More than half the days 
-			<input ref={this.props.ID} type="radio" onChange={this.SetScore} name={this.props.ID} value="3"/>Nearly every day 
-			<hr />
-			</div>
-			);
-	}
-}
-
-QuestionInput.propTypes = {
-	question: React.PropTypes.string.isRequired,
-	ID: React.PropTypes.string.isRequired
-}
-
-QuestionInput.defaultProps = {
-	question: "this is a test",
-	ID:0
-
 }
 //stateless therapist class. No need to keep track of state. Just generate a list of options and let the owner do that.
 const Therapist = (props) => {
 	return (
-			<div>
+			<div id="therapistList">
+				<h1>Choose a Therapist to see</h1><br />
 				<input type="radio" onChange={props.onChange} name="therapist" value={props.name1} /> {props.name1}
 				<input type="radio" onChange={props.onChange} name="therapist" value={props.name2} /> {props.name2}
 				<input type="radio" onChange={props.onChange} name="therapist" value={props.name3} /> {props.name3}

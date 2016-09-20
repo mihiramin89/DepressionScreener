@@ -2,10 +2,41 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Setup </title>
+	<title>Depression Screener </title>
+	<link rel="stylesheet" type="text/css" href="layout.css">
+	<script>
+		/* Close when someone clicks on the "x" symbol inside the overlay */
+		function closeNav() {
+		    document.getElementById("overlay").style.width = "0%";
+		}
+	</script>
 </head>
 <body>
+	<h1> Depression Screener </h1>
+	<section>
+		<div class="content">
+			This easy to use patient questionnaire is a self-administered version of the PRIME-MD diagnostic instrument for common mental disorders. The PHQ-9 is the depression module, which scores each of the nine DSM-IV criteria as "0" (not at all) to "3" (nearly every day). It has been validated for use in primary care. 
+		</div> <br />
+		<div class="content">
+			It is not a screening tool for depression but it is used to monitor the severity of depression and response to treatment. However, it can be used to make a tentative diagnosis of depression in at-risk populations - eg, those with coronary heart disease or after stroke.
+		</div>
+	</section>
+	<br />
 	<div id="app"></div>
+	<br />
+	<br />
+	<div id="TList"></div>
+	<!-- The overlay -->
+	<div id="overlay" class="overlay">
+
+	  <!-- Button to close the overlay navigation -->
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+	  <!-- Overlay content -->
+	  <div id="overlay-content" class="overlay-content">
+	  </div>
+
+	</div>
 	<script src="index.js"></script>
 </body>
 </html>

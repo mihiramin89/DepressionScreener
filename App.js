@@ -33,11 +33,13 @@ class App extends React.Component {
 			therapist: ""
 
 		};
+		//bind functions to the component.
 		this.SaveScore = this.SaveScore.bind(this);
 		this.ChosenTherapist = this.ChosenTherapist.bind(this);
 		this.NeedsToSeeTherapist = this.NeedsToSeeTherapist.bind(this);
 		this.SendMessage = this.SendMessage.bind(this);
 	}
+	//This function is used to determine if the user needs to see Therapist recommendations. If true, will display some for them to choose from. otherwise will just return a thank you message.
 	NeedsToSeeTherapist()
 	{
 		if(this.state.final_score >= 10)
@@ -50,6 +52,7 @@ class App extends React.Component {
 		}
 	}
 
+	//this function just updates the state of app with the therapist's name for the thank you message.
 	ChosenTherapist(e)
 	{
 		this.setState({
@@ -57,12 +60,14 @@ class App extends React.Component {
 		})
 	}
 
+	//this function displays a message to the user thanking them for taking the survey and to encourage them to setup an appointment with the selected therapist.
 	SendMessage()
 	{
 		ReactDOM.render(<div id="Depressed">Thank you! Please schedule a meeting with Therapist {this.state.therapist} in  the near future.</div>, document.getElementById('overlay-content'));
 		document.getElementById("overlay").style.width = "100%";
 	}
 
+	//this function updates the states final score as well as the individual score for each question. 
 	SaveScore(ID, val)
 	{
 		let scoreCount = 0;
@@ -77,10 +82,10 @@ class App extends React.Component {
 			final_score: scoreCount
 		})
 	}
+	//code to display the app component.
 	render(){
 		return (
 			<div>
-				<h2 ref="msg" className="message" id="msg"></h2>
 				<ol>
 					{this.state.questions.map(q => {
 					 	return <li><QuestionInput key={q.ID} ref={q.ref} ID={q.ID} question={q.question} onChange={this.SaveScore} /></li>

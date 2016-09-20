@@ -12,6 +12,7 @@ To run this program, you will first need to grab a copy of this repository. Then
 following commands via the terminal/command prompt. (assumes you have npm installed locally) 
 >- npm install (to install all the node modules).
 >- npm start
+>- open the following url in your browser: localhost:3333
 
 ## Tests
 

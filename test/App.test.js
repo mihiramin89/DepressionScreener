@@ -27,16 +27,12 @@ describe("App Test", function() {
     	expect(TestUtils.isCompositeComponent(instance)).toBeTruthy();
 	});
 
-	//testcase to see if what happens on button click.
-	it("function SendMessage", function() {
-		//var instance = new App();
+	//testcase to make sure final_score is started at zero.
+	it("final_score is zero", function() {
 		var instance = TestUtils.renderIntoDocument( <App /> );
-		var result = instance.SendMessage;
-		var msg = TestUtils.findRenderedDOMComponentWithTag(instance, 'h1');
-		console.log(typeof msg);
-
-		expect(msg.text).toEqual("Thank you! please schedule a meeting with Therapist  in  the near future.");
+		expect(instance.state.final_score).toBe(0);
 	});
+
 });
 
 describe("QuestionInput", function() {
@@ -46,13 +42,12 @@ describe("QuestionInput", function() {
 		expect(instance.constructor.name).toEqual("QuestionInput");
 	});
 
-	//checks to see if the app is rendered in the document. 
+	//checks to see if the questionInput is rendered in the document. 
 	it("is rendered",function() {
 
-		var instance = TestUtils.renderIntoDocument( <QuestionInput /> );
+		var instance = TestUtils.renderIntoDocument( <QuestionInput  /> );
     	expect(TestUtils.isCompositeComponent(instance)).toBeTruthy();
 	});
-
 });
 
 

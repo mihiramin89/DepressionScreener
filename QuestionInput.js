@@ -33,7 +33,7 @@ QuestionInput.propTypes = {
 
 QuestionInput.defaultProps = {
 	question: "this is a test",
-	ID:0
+	ID:"0"
 
 }
 export default QuestionInput
